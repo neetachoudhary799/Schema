@@ -1,0 +1,37 @@
+<div itemscope itemtype="http://schema.org/Product">
+	<meta itemprop="name" content="{{product.title}}" />
+	<meta itemprop="description" content="{{product.description | strip_html | truncatewords: 50}}" />
+	<meta itemprop="sku" content="{{ product.selected_or_first_available_variant.sku }}" />
+	<meta itemprop="url" content="{{ shop.secure_url }}{{ product.url }}">
+	<meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+	<meta itemprop="brand" content="{{ product.vendor }}" />
+	<meta itemprop="mpn" content="{{ product.selected_or_first_available_variant.sku }}" />
+	{% if product.metafields.loox.num_reviews %}
+		<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+		  	<meta itemprop="bestRating" content="5">
+		  	<meta itemprop="worstRating" content="1"/>  
+		  	<meta itemprop="ratingValue" content="{{ product.metafields.loox.avg_rating }}"/>
+		  	<meta itemprop="reviewCount" content="{{ product.metafields.loox.num_reviews }}"/>
+		</div>
+		<div itemprop="review" itemscope itemtype="http://schema.org/Review"  content = "{{ product.metafields.loox.avg_rating }}">
+		  	<span itemprop="name" content="Good Product"></span> 
+		  	<span itemprop="author" content="{{ shop.name }}"></span>
+		  	<meta itemprop="datePublished" content="">
+	
+		  	<div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+			    <meta itemprop="worstRating" content = "0">
+		    	<span itemprop="ratingValue" content = "{{ product.metafields.loox.num_reviews }}"></span>
+		    	<span itemprop="bestRating" content = "{{ product.metafields.loox.num_reviews }}"></span>
+		  	</div>
+		</div>
+	{% endif %}
+	<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+		<meta itemprop="priceCurrency" content="{{ shop.currency }}" />
+        <meta itemprop="price" content="{{product.selected_or_first_available_variant.price|money_without_currency | remove: ','}}" />
+		<meta itemprop="priceValidUntil" content="{{ "today" | date: '%s' | plus: days | date: "%Y-%m-%d" }}">
+    	<meta itemprop="availability" content="http://schema.org/{% if product.selected_or_first_available_variant.available %}InStock{% else %}OutOfStock{% endif %}"/>
+        <meta itemprop="itemCondition" itemtype="http://schema.org/OfferItemCondition" content="http://schema.org/NewCondition"/>
+   		<meta itemprop="seller" content="{{ shop.name | escape }}" />
+        <meta itemprop="url" content="{{ shop.secure_url }}{{ product.selected_or_first_available_variant.url }}">
+	</div> 
+</div>
