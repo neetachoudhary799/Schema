@@ -97,10 +97,10 @@
               {%- endif -%}
         {%- endif -%}
 {%- elsif productReviewsPlugin == "areviews" %}
-    {%- assign ratingValueReviewArray = product.metafields.areviews.product_reviews | split: "'ratingValue' content='" -%}
+   {%- assign ratingValueReviewArray = product.metafields.areviews.product_reviews | split: "'ratingValue' content='" -%}
     {%- assign ratingValueArr = ratingValueReviewArray[1] |split: "'" -%}
     {%- assign reviewValue = ratingValueArr[0] -%}
-    {%- assign reviewsCountStrArray = product.metafields.areviews.product_reviews | split: "'ratingCount' content='" -%}
+    {%- assign reviewsCountStrArray = product.metafields.areviews.product_reviews | split: "'reviewCount' content='" -%}
     {%- assign reviewsCountArr = reviewsCountStrArray[1] | split: "'" -%}
     {%- assign reviewsCount = reviewsCountArr[0] -%}
     {%- unless reviewsCount == blank -%}
